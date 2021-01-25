@@ -1,29 +1,27 @@
 // This file declares the database initialization screen
 
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:flutter/material.dart';
 import 'package:anisi_controls/anisi_controls.dart';
 
-import 'package:kamusi/models/generic_model.dart';
-import 'package:kamusi/models/word_model.dart';
-import 'package:kamusi/models/callbacks/Generic.dart';
-import 'package:kamusi/models/callbacks/Word.dart';
-import 'package:kamusi/utils/constants.dart';
-import 'package:kamusi/utils/colors.dart';
-import 'package:kamusi/utils/preferences.dart';
-import 'package:kamusi/helpers/sqlite_assets.dart';
-import 'package:kamusi/helpers/sqlite_helper.dart';
-import 'package:kamusi/screens/start_screen.dart';
+import 'package:katiba/models/record.dart';
+import 'package:katiba/utils/constants.dart';
+import 'package:katiba/utils/colors.dart';
+import 'package:katiba/utils/preferences.dart';
+import 'package:katiba/helpers/sqlite_assets.dart';
+import 'package:katiba/helpers/sqlite_helper.dart';
+import 'package:katiba/screens/start_screen.dart';
 
 class InitLoadScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return CcInitLoadState();
+    return InitLoadState();
   }
 }
 
-class CcInitLoadState extends State<InitLoadScreen> {
+class InitLoadState extends State<InitLoadScreen> {
   final globalKey = new GlobalKey<ScaffoldState>();
   
   AsLineProgress progress = AsLineProgress.setUp(0, Colors.black, Colors.black, ColorUtils.secondaryColor);
@@ -32,10 +30,7 @@ class CcInitLoadState extends State<InitLoadScreen> {
   SqliteHelper db = SqliteHelper();
   SqliteAssets adb = SqliteAssets();
 
-  List<Word> words =List<Word>();
-  List<Generic> idiomsList =List<Generic>();
-  List<Generic> sayingsList =List<Generic>();
-  List<Generic> proverbsList =List<Generic>();
+  List<Record> records =List<Record>();
 
   Future<Database> dbAssets;
   Future<Database> dbFuture;
@@ -62,6 +57,49 @@ class CcInitLoadState extends State<InitLoadScreen> {
     );
   }
 
+  Widget informant()
+  {
+    return Container(
+      decoration: new BoxDecoration( 
+          color: Colors.white,
+          border: Border.all(color: Colors.green),
+          boxShadow: [BoxShadow(blurRadius: 5)],
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+        ),
+        margin: const EdgeInsets.all(20),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: _getCenterContent(),
+        ),
+    );
+  }
+
+  Widget _getCenterContent() {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+                padding: const EdgeInsets.all(10),
+                child:  _getCircularProgress(),
+          ),              
+          Container(
+            width: MediaQuery.of(context).size.width - 150,
+            child: Text(
+              "Loading ...", style: TextStyle(color: Colors.green, fontSize: 18), softWrap: true,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _getCircularProgress() {
+    return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation(Colors.green));
+  }
+
   Widget mainBody() {
     mHeight = MediaQuery.of(context).size.height;
     mWidth = MediaQuery.of(context).size.width;
@@ -73,21 +111,23 @@ class CcInitLoadState extends State<InitLoadScreen> {
           image: AssetImage("assets/images/splash.jpg"),
           fit: BoxFit.cover)
       ),
-      child: SingleChildScrollView(
-        child: Column(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.only(top: mHeight / 1.5),
+        child: Stack(
           children: <Widget>[
             Container(
-              width: mWidth / 1.125,
-              margin: EdgeInsets.only(top: mHeight / 2.52),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              height: 150,
               child: Center(
-                child: progress,
+                child: informer,
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: mHeight / 7.56),
+              height: 37,
+              margin: EdgeInsets.only(top: 110),
+              padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Center(
-                child: informer,
+                child: progress,
               ),
             ),
           ],
@@ -99,128 +139,56 @@ class CcInitLoadState extends State<InitLoadScreen> {
   void requestData() async {
     dbAssets = adb.initializeDatabase();
     dbAssets.then((database) {
-      Future<List<Word>> wordListAsset = adb.getWordList();
-      wordListAsset.then((wordList) {
+      Future<List<Record>> recordListAsset = adb.getRecordList();
+      recordListAsset.then((recordList) {
         setState(() {
-          words = wordList;
-          requestNahauData();
-        });
-      });
-    });
-  }
-
-  void requestNahauData() async {
-    dbAssets = adb.initializeDatabase();
-    dbAssets.then((database) {
-      Future<List<Generic>> idiomsListAsset = adb.getGenericList(LangStrings.idiomsTable);
-      idiomsListAsset.then((idiomsList) {
-        setState(() {
-          idiomsList = idiomsList;
-          requestMisemoData();
-        });
-      });
-    });
-  }
-
-  void requestMisemoData() async {
-    dbAssets = adb.initializeDatabase();
-    dbAssets.then((database) {
-      Future<List<Generic>> sayingsListAsset = adb.getGenericList(LangStrings.sayingsTable);
-      sayingsListAsset.then((itemsList) {
-        setState(() {
-          sayingsList = itemsList;
-          requestMethaliData();
-        });
-      });
-    });
-  }
-
-  void requestMethaliData() async {
-    dbAssets = adb.initializeDatabase();
-    dbAssets.then((database) {
-      Future<List<Generic>> proverbsListAsset = adb.getGenericList(LangStrings.proverbsTable);
-      proverbsListAsset.then((itemsList) {
-        setState(() {
-          proverbsList = itemsList;
+          records = recordList;
           _goToNextScreen();
         });
       });
     });
   }
 
-  Future<void> saveWordsData() async {
-    for (int i = 0; i < words.length; i++) {
-      int progressValue = (i / words.length * 100).toInt();
+  Future<void> saveRecordsData() async {
+    for (int i = 0; i < records.length; i++) {
+      int progressValue = (i / records.length * 100).toInt();
       progress.setProgress(progressValue);
 
       switch (progressValue) {
         case 1:
-          informer.setText("Moja...");
-          break;
-        case 2:
-          informer.setText("Mbili...");
-          break;
-        case 3:
-          informer.setText("Tatu ...");
-          break;
-        case 4:
-          informer.setText("Inapakia ...");
-          break;
-        case 10:
-          informer.setText("Inapakia maneno ...");
+          informer.setText("Loading data ...");
           break;
         case 20:
-          informer.setText("Kuwa mvumilivu ...");
+          informer.setText("Be patient ...");
           break;
         case 40:
-          informer.setText("Mvumilivu hula mbivu ...");
-          break;
-        case 50:
-          informer.setText("Kama una haraka, shuka ukimbie ...");
+          informer.setText("Because patience pays ...");
           break;
         case 75:
-          informer.setText("Asante kwa uvumilivu wako!");
+          informer.setText("Thanks for your patience!");
           break;
         case 85:
-          informer.setText("Hatimaye");
-          break;
-        case 90:
-          informer.setText("Inapakia words ...");
+          informer.setText("Finally!");
           break;
         case 95:
-          informer.setText("Karibu tunamalizia");
+          informer.setText("Almost done");
           break;
       }
 
-      Word item = words[i];
+      Record item = records[i];
 
-      WordModel word = new WordModel(item.title, item.meaning, item.synonyms, item.conjugation);
+      Record record = new Record(item.type, item.refid, item.number, item.title, item.body);
 
-      await db.insertWord(word);
-    }
-  }
-
-  Future<void> saveGenericData(String type, String table, List<Generic> genericlist) async {
-    for (int i = 0; i < genericlist.length; i++) {
-      int progressValue = (i / genericlist.length * 100).toInt();
-      progress.setProgress(progressValue);
-      informer.setText(">> Inapakia " + type + " ...");
-      Generic item = genericlist[i];
-
-      GenericModel generic = new GenericModel(item.title, item.meaning);
-
-      await db.insertGeneric(table, generic);
+      await db.insertRecord(record);
     }
   }
 
   Future<void> _goToNextScreen() async {
-    await saveWordsData();
-    await saveGenericData(LangStrings.idioms, LangStrings.idiomsTable, idiomsList);
-    await saveGenericData(LangStrings.sayings, LangStrings.sayingsTable, sayingsList);
-    await saveGenericData(LangStrings.proverbs, LangStrings.proverbsTable, proverbsList);
+    await saveRecordsData();
 
-    Preferences.setKamusidbLoaded(true);
+    Preferences.setAppdbLoaded(true);
     Navigator.pushReplacement(
         context, new MaterialPageRoute(builder: (context) => new StartScreen()));
   }
+  
 }

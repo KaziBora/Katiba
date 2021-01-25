@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:kamusi/widgets/as_search.dart';
-import 'package:kamusi/views/main_view.dart';
-import 'package:kamusi/models/word_model.dart';
-import 'package:kamusi/helpers/sqlite_helper.dart';
+import 'package:katiba/widgets/as_search.dart';
+import 'package:katiba/views/main_view.dart';
+import 'package:katiba/models/record.dart';
+import 'package:katiba/helpers/sqlite_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -17,13 +17,13 @@ class SearchState extends State<SearchScreen> {
   double offset = 0.0;
 
   SqliteHelper db = SqliteHelper();
-  List<WordModel> itemList;
+  List<Record> itemList;
 
   void updateItemList() {
     final Future<Database> dbFuture = db.initializeDatabase();
     dbFuture.then((database) {
-      Future<List<WordModel>> wordListFuture = db.getWordList();
-      wordListFuture.then((itemList) {
+      Future<List<Record>> recordListFuture = db.getRecordList();
+      recordListFuture.then((itemList) {
         setState(() {
           this.itemList = itemList;
         });

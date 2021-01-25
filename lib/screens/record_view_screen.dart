@@ -8,38 +8,38 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 
-import 'package:kamusi/utils/constants.dart';
-import 'package:kamusi/helpers/app_settings.dart';
-import 'package:kamusi/helpers/sqlite_helper.dart';
-import 'package:kamusi/models/word_model.dart';
+import 'package:katiba/utils/constants.dart';
+import 'package:katiba/helpers/app_settings.dart';
+import 'package:katiba/helpers/sqlite_helper.dart';
+import 'package:katiba/models/record.dart';
 
-class WordViewScreen extends StatefulWidget {
-  final WordModel word;
+class RecordViewScreen extends StatefulWidget {
+  final Record record;
 
-  WordViewScreen(this.word);
+  RecordViewScreen(this.record);
 
   @override
   State<StatefulWidget> createState() {
-    return EeWordViewScreenState(this.word);
+    return EeRecordViewScreenState(this.record);
   }
 }
 
-class EeWordViewScreenState extends State<WordViewScreen> {
-  EeWordViewScreenState(this.word);
+class EeRecordViewScreenState extends State<RecordViewScreen> {
+  EeRecordViewScreenState(this.record);
   final globalKey = new GlobalKey<ScaffoldState>();
   SqliteHelper db = SqliteHelper();
 
-  var appBar = AppBar(), wordVerses;
-  WordModel word;
-  int curWord = 0;
-  String wordContent;
+  var appBar = AppBar(), recordVerses;
+  Record record;
+  int curRecord = 0;
+  String recordContent;
   List<String> meanings, synonyms;
-  List<WordModel> words;
+  List<Record> records;
 
   @override
   Widget build(BuildContext context) {
-    curWord = word.id;
-    wordContent = word.title + " ni word la Kiswahili lenye meaning:";
+    curRecord = record.id;
+    recordContent = record.title + " ni record la Kiswahili lenye meaning:";
     bool isFavourited(int favorite) => favorite == 1 ?? false;
 
     if (meanings == null) {
@@ -60,7 +60,7 @@ class EeWordViewScreenState extends State<WordViewScreen> {
           actions: <Widget>[
             IconButton(
               icon: Icon(
-                isFavourited(word.isfav) ? Icons.star : Icons.star_border,
+                isFavourited(record.isfav) ? Icons.star : Icons.star_border,
               ),
               onPressed: () => favoriteThis(),
             )
@@ -90,7 +90,7 @@ class EeWordViewScreenState extends State<WordViewScreen> {
           new Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Html(
-              data: "<h3>" + word.title + "</h3>",
+              data: "<h3>" + record.title + "</h3>",
               style: {
                 "h3": Style(
                     fontSize: FontSize(30.0),
@@ -116,57 +116,27 @@ class EeWordViewScreenState extends State<WordViewScreen> {
   }
 
   Widget listView(BuildContext context, int index) {
-    if (word.synonyms == meanings[index]) {
-      wordContent = wordContent +
-          LangStrings.synonyms_for +
-          word.title +
-          " ni: " +
-          word.synonyms;
+    var strContents = meanings[index].split(":");
+    String strContent = meanings[index];
 
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+    recordContent = recordContent + "\n - " + meanings[index];
+
+    return Card(
+      elevation: 2,
+      child: GestureDetector(
         child: Html(
-          data: "<p><b>Visawe:</b> <i>" + word.synonyms + "</i></p>",
+          data: "<ul><li>" + strContent + "</li></ul>",
           style: {
-            "p": Style(
+            "li": Style(
               fontSize: FontSize(25.0),
+            ),
+            "p": Style(
+              fontSize: FontSize(22.0),
             ),
           },
         ),
-      );
-    } else {
-      var strContents = meanings[index].split(":");
-      String strContent = meanings[index];
-
-      if (strContents.length > 1) {
-        strContent = strContents[0] + "<br>";
-        strContent = strContent +
-            "<p><b>Kwa mfano:</b> <i>" +
-            strContents[1] +
-            "</i></p>";
-
-        wordContent = wordContent + "\n- " + strContents[0] + " kwa mfano: ";
-        wordContent = wordContent + strContents[1];
-      } else
-        wordContent = wordContent + "\n - " + meanings[index];
-
-      return Card(
-        elevation: 2,
-        child: GestureDetector(
-          child: Html(
-            data: "<ul><li>" + strContent + "</li></ul>",
-            style: {
-              "li": Style(
-                fontSize: FontSize(25.0),
-              ),
-              "p": Style(
-                fontSize: FontSize(22.0),
-              ),
-            },
-          ),
-        ),
-      );
-    }
+      ),
+    );
   }
 
   List<Widget> floatingButtons() {
@@ -187,26 +157,26 @@ class EeWordViewScreenState extends State<WordViewScreen> {
   }
 
   void copyItem() {
-    Clipboard.setData(ClipboardData(text: wordContent + LangStrings.campaign));
+    Clipboard.setData(ClipboardData(text: recordContent + LangStrings.campaign));
     globalKey.currentState.showSnackBar(new SnackBar(
-      content: new Text(LangStrings.wordCopied),
+      content: new Text(LangStrings.recordCopied),
     ));
   }
 
   void shareItem() {
     Share.share(
-      wordContent + LangStrings.campaign,
-      subject: "Shiriki word: " + word.title,
+      recordContent + LangStrings.campaign,
+      subject: "Shiriki record: " + record.title,
     );
   }
 
   void favoriteThis() {
-    if (word.isfav == 1)
-      db.favouriteWord(word, false);
+    if (record.isfav == 1)
+      db.favouriteRecord(record, false);
     else
-      db.favouriteWord(word, true);
+      db.favouriteRecord(record, true);
     globalKey.currentState.showSnackBar(new SnackBar(
-      content: new Text(word.title + " " + LangStrings.wordLiked),
+      content: new Text(record.title + " " + LangStrings.recordLiked),
     ));
     //notifyListeners();
   }
@@ -216,12 +186,12 @@ class EeWordViewScreenState extends State<WordViewScreen> {
   }
 
   void processData() async {
-    wordContent = word.title;
+    recordContent = record.title;
     meanings = [];
     synonyms = [];
 
     try {
-      String strMeaning = word.meaning;
+      String strMeaning = record.body;
       strMeaning = strMeaning.replaceAll("\\", "");
       strMeaning = strMeaning.replaceAll('"', '');
 
@@ -235,18 +205,6 @@ class EeWordViewScreenState extends State<WordViewScreen> {
         meanings.add(strMeanings[0]);
       }
     } catch (Exception) {}
-    if (word.synonyms.length > 1) meanings.add(word.synonyms);
 
-    try {
-      var strSynonyms = word.meaning.split("|");
-
-      if (strSynonyms.length > 1) {
-        for (int i = 0; i < strSynonyms.length; i++) {
-          synonyms.add(strSynonyms[i]);
-        }
-      } else {
-        synonyms.add(strSynonyms[0]);
-      }
-    } catch (Exception) {}
   }
 }

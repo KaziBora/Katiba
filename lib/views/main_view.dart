@@ -1,17 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:kamusi/utils/constants.dart';
-import 'package:kamusi/widgets/as_tab_bar.dart';
-import 'package:kamusi/views/tab_view_word.dart';
-import 'package:kamusi/views/tab_view_generic.dart';
-import 'package:kamusi/models/page.dart';
+import 'package:katiba/utils/colors.dart';
+import 'package:katiba/utils/constants.dart';
+import 'package:katiba/widgets/as_tab_bar.dart';
+import 'package:katiba/views/tab_view_record.dart';
+import 'package:katiba/models/page.dart';
 
 List<AsPage> _allPages = <AsPage>[
-  AsPage(title: LangStrings.words, content: LangStrings.wordsTable, category: 'category-name'),
-  AsPage(title: LangStrings.sayings, content: LangStrings.sayingsTable, category: 'category-name'),
-  AsPage(title: LangStrings.idioms, content: LangStrings.idiomsTable, category: 'category-name'),
-  AsPage(title: LangStrings.proverbs, content: LangStrings.proverbsTable, category: 'category-name'),
+  AsPage(title: LangStrings.record_type1, category: 'category-name'),
+  AsPage(title: LangStrings.record_type2, category: 'category-name'),
+  AsPage(title: LangStrings.record_type3, category: 'category-name'),
+  AsPage(title: LangStrings.record_type4, category: 'category-name'),
 ];
 
 class MainView extends StatefulWidget {
@@ -61,8 +61,7 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
     final List<Widget> tabChildernPages = <Widget>[];
     _allPages.forEach((AsPage page)
     {
-      if (page.title == LangStrings.wordsTable) tabChildernPages.add(TabViewWord());
-      else tabChildernPages.add(TabViewGeneric(page.content));
+      tabChildernPages.add(TabViewRecord());
     });
 
     return Column(
@@ -70,7 +69,7 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(top: _offset),
-          decoration: BoxDecoration(color: Colors.blue),
+          decoration: BoxDecoration(color: ColorUtils.primaryColor),
         ),
         AsTabBar(_controller, _allPages),
         Expanded(

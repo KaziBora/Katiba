@@ -4,9 +4,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:kamusi/screens/init_load_screen.dart';
-import 'package:kamusi/utils/navigation.dart';
-import 'package:kamusi/utils/preferences.dart';
+import 'package:katiba/screens/init_load_screen.dart';
+import 'package:katiba/utils/navigation.dart';
+import 'package:katiba/utils/preferences.dart';
 
 class StartScreen extends StatefulWidget {
   @override
@@ -37,11 +37,11 @@ class SplashPageState extends State<StartScreen> {
   }
 
   void _handleTapEvent() async {
-    bool kamusidbLoaded = await Preferences.isKamusidbLoaded();
+    bool katibadbLoaded = await Preferences.isAppdbLoaded();
 
       if (this.mounted) {
       setState(() {
-        if (kamusidbLoaded != null && kamusidbLoaded)
+        if (katibadbLoaded != null && katibadbLoaded)
         {
           pushHomeScreenScreen(context);
         }

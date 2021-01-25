@@ -9,40 +9,35 @@ class SharedPreferenceKeys {
 
 /// General language strings that are used throught the application majoryly in Kiswahili language
 class LangStrings {
-  static const String appName = "Kamusi Ya Kiswahili";
-  static const String inProgress = "Inaendelea ...";
-  static const String gettingReady = "Matayarisho ...";
-  static const String somePatience = "Eish! ... Subiri kidogo ...";
-  static const String words = 'maneno';
-  static const String proverbs = 'methali';
-  static const String sayings = 'misemo';
-  static const String idioms = 'nahau';
-  static const String searches = 'matafuto';
-  static const String trivia = 'trivia';
+  static const String appName = "Katiba Ya Kenya";
+  static const String inProgress = "In Progress ...";
+  static const String gettingReady = "Getting ready ...";
+  static const String somePatience = "Eish! ... A little patience ...";
+  static const String records = 'artciles';
+  static const String record_type1 = 'preamble';
+  static const String record_type2 = 'schedules';
+  static const String record_type3 = 'chapters';
+  static const String record_type4 = 'articles';
+  static const String searches = 'searches';
 
-  static const String campaign = "\n\n#KamusiYaKiswahili #KiswahiliKitukuzwe \n\nhttps://play.google.com/store/apps/details?id=com.kazibora.kamusi ";
+  static const String campaign = "\n\n#KatibaYaKenya #KenyanConstitution \n\nhttps://play.google.com/store/apps/details?id=com.kazibora.katiba ";
   static const String synonyms_for = "\n\nVisawe (synonyms) vya neno ";
-  static const String searchNow = "Tafuta ";
-  static const String searchHint = "Tafuta Maneno ya Kiswahili";
-  static const String favourited = "Maneno Uliyopenda";
+  static const String searchNow = "Search ";
+  static const String searchHint = "Search Katiba Ya Kenya";
+  static const String favourited = "Favourited Content";
 
-  static const String wordsTable = 'words';
-  static const String proverbsTable = 'proverbs';
-  static const String sayingsTable = 'sayings';
-  static const String idiomsTable = 'idioms';
+  static const String recordsTable = 'records';
+  static const String historyTable = 'history';
   static const String searchesTable = 'searches';
-  static const String triviaTable = 'trivia';
 
   static const String id = 'id';
-  static const String wordid = 'wordid';
-  static const String wordids = 'wordids';
-  static const String triviaid = 'triviaid';
-  static const String categoryid = 'categoryid';
   static const String created = 'created';
+  static const String type = 'type';
+  static const String refid = 'refid';
+  static const String recordid = 'recordid';
+  static const String number = 'number';
   static const String title = 'title';
-  static const String meaning = 'meaning';
-  static const String synonyms = 'synonyms';
-  static const String conjugation = 'conjugation';
+  static const String body = 'body';
   static const String isfav = 'isfav';
   static const String views = 'views';
   static const String notes = 'notes';
@@ -53,59 +48,55 @@ class LangStrings {
   static const String questions = 'questions';
   static const String score = 'score';
 
-  static const String nothing = 'Ala! Yaani hivi kumbe hamna chochote huku!\nHebu fanya jambo ...';
+  static const String nothing = 'Oops! You mean there is nothing here ...';
 
-  static const String copyThis = "Nakili kwa Clipboard";
-  static const String shareThis = "Shiriki";
+  static const String copyThis = "Copied to Clipboard";
+  static const String shareThis = "Share";
 
-  static const String wordCopied = "Word limenakiliwa kwa clipboard!";
-  static const String wordLiked = " imependwa!";
-  static const String wordDisliked = " haijapendwa!";
+  static const String recordCopied = "Content copied clipboard!";
+  static const String recordLiked = " liked!";
+  static const String recordDisliked = " disliked!";
 
-  static const String mandhariMeusi = "Mandhari Meusi";
+  static const String mandhariMeusi = "Dark Mode";
 
-  static const String donateActionButton = "CHANGIA";
-  static const String laterActionButton = "BAADAYE";
+  static const String donateActionButton = "DONATE";
+  static const String laterActionButton = "LATER";
   
-  static String donateDialogTitle = "CHANGIA SASA";
-  static const String donateDialogMessage = "Kamusi ya Kiswahili ni kitumizi cha bure cha kuwezesha watumizi kama wewe waelimike na kufuzu katika lugha ya Kiswahili." +
-    " Sisi ni shirika lisilo la faida na tunategemea watu kama wewe kutusaidia kuweka Kamusi bure bila ya matangazo ya kibiashara kwa mamilioni ya watu ulimwenguni";
-
-  static const String donateTabPage = "Tuunge Mkono kwa Mchango";
+  static const String donateTabPage = "Support us, Donate";
 
   static const String donateTab1Title = "M-Pesa";
-  static const String donateTab1Content = "PAYBILL: 891300\n\nAKAUNTI: 34489";
+  static const String donateTab1Content = "PAYBILL: 891300\n\nACCOUNT: 34489";
 
   static const String donateTab2Title = "Equitel";
-  static const String donateTab2Content = "NAMBARI YA BIASHARA:\n\t891300\n\nAKAUNTI: 34489";
+  static const String donateTab2Content = "BUSINESS NUMBER:\n\t891300\n\nAKAUNTI: 34489";
 
   static const String donateTab3Title = "Airtel";
   static const String donateTab3Content =
-      "JINA LA BIASHARA:\n\tMCHANGA\n\nAKAUNTI: 34489";
+      "BUSINESS NAME:\n\tMCHANGA\n\nACCCOUNT: 34489";
 
   static const String donateTab4Title = "PayPal";
   static const String donateTab4Content =
-      "ANWANI:\n\ttunaboresha [at] gmail.com";
+      "ADDRESS:\n\ttunaboresha [at] gmail.com";
 
-  static const String helpTabPage = "Usaidizi na Mawasiliano";
+  static const String helpTabPage = "HelpDesk";
 
-  static const String helpTab1Title = "Wasiliana";
+  static const String helpTab1Title = "Contacts";
   static const String helpTab1Content =
-      "<p>SIMU: +2547 - </p><hr><p>BARUA PEPE: tunaboresha [at] gmail.com </p><hr> <p>TOVUTI: <a href=\"https://kazibora.github.io\">kazibora.github.io</a></p>";
+      "<p>PHONE: +2547 - </p><hr><p>EMAIL: tunaboresha [at] gmail.com </p><hr> <p>WEBSITE: <a href=\"https://kazibora.github.io\">kazibora.github.io</a></p>";
 
   static const String helpTab2Title = "Reviews";
   static const String helpTab2Content =
-      "Iwapo unafurahia kitumizi (app) chetu au haufurahii tafadhali tujulishe kwa kuacha review yako kwenye <a href=\"https://play.google.com/store/apps/details?id=com.kazibora.kamusi\">Google Play Store</a>";
+      "If you enjoy our app or don't like it please let us know by leaving your review on the <a href=\"https://play.google.com/store/apps/details?id=com.kazibora.katiba\">Google Play Store</a>";
 
   static const String helpTab3Title = "Open Source";
   static const String helpTab3Content =
-      "Iwapo wewe ni Msanidi Kitumizi (App Developer), source code ya kitumizi hiki yapatikana bila malipo kwenye GitHub:</br></br> <a href=\"https://github.com/kazibora/kamusi\">github.com/kazibora/kamusi</a>";
+      "If you are an App Developer, the source code for this app is freely available on GitHub:</br></br> <a href=\"https://github.com/kazibora/katiba\">github.com/kazibora/katiba</a>";
 
       
-  static const String howToUse = "Jinsi ya Kutumia Kitumizi";
-  static const String howToSearch1 = "Kutafuta words";
-  static const String howToSearch2 = "Guza sehemu nyeupe iliyoonyeshwa kwa mstari mwekundu ili kufungua skrini ya kutafuta words. " +
-  "Tafadhali zingatia kuwa utafutaji ni wa words pekee";
+  static const String howToUse = "How it Works";
+  static const String howToSearch1 = "Searching content";
+  static const String howToSearch2 = "Guza sehemu nyeupe iliyoonyeshwa kwa mstari mwekundu ili kufungua skrini ya kutafuta records. " +
+  "Tafadhali zingatia kuwa utafutaji ni wa records pekee";
   static const String aboutApp = "Kuhusu Kitumizi";
 
   static const String favoritesTab = "Vipendwa";
@@ -125,72 +116,34 @@ class LangStrings {
 
 /// Strings used in the database queries
 class Queries {
-  /// Query string for creating the words table
-  static const String createWordsTable = 'CREATE TABLE ' + LangStrings.wordsTable +
-    '(' + 
+  /// Query string for creating the records table
+  static const String createRecordsTable = 'CREATE TABLE IF NOT EXISTS ' + LangStrings.recordsTable +
+    '(' +
       LangStrings.id + ' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ' +
+      LangStrings.type + ' VARCHAR(20), ' +
+      LangStrings.refid + ' INTEGER NOT NULL DEFAULT 0, ' +
+      LangStrings.number + ' INTEGER NOT NULL DEFAULT 0, ' +
       LangStrings.title + ' VARCHAR(100), ' +
-      LangStrings.meaning + ' VARCHAR(300), ' +
-      LangStrings.synonyms + ' VARCHAR(100), ' +
-      LangStrings.conjugation + ' VARCHAR(100),' +
+      LangStrings.body + ' VARCHAR(2000),' +
       LangStrings.notes + ' VARCHAR(500), ' +
       LangStrings.isfav + ' INTEGER NOT NULL DEFAULT 0, ' +
       LangStrings.views + ' INTEGER NOT NULL DEFAULT 0' +
     ');';
 
-  /// Query string for creating the proverbs table
-  static const String createProverbsTable = 'CREATE TABLE ' + LangStrings.proverbsTable +
-    '(' +
-      LangStrings.id + ' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ' +
-      LangStrings.title + ' VARCHAR(100), ' +
-      LangStrings.meaning + ' VARCHAR(500), ' +
-      LangStrings.notes + ' VARCHAR(500), ' +
-      LangStrings.isfav + ' INTEGER NOT NULL DEFAULT 0, ' +
-      LangStrings.views + ' INTEGER NOT NULL DEFAULT 0' +
-    ');';
-
-  /// Query string for creating the sayings table
-  static const String createSayingsTable = 'CREATE TABLE ' + LangStrings.sayingsTable +
-    '(' +
-      LangStrings.id + ' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ' +
-      LangStrings.title + ' VARCHAR(100), ' +
-      LangStrings.meaning + ' VARCHAR(500), ' +
-      LangStrings.notes + ' VARCHAR(500), ' +
-      LangStrings.isfav + ' INTEGER NOT NULL DEFAULT 0, ' +
-      LangStrings.views + ' INTEGER NOT NULL DEFAULT 0' +
-    ');';
-
-  /// Query string for creating the idioms table
-  static const String createIdiomsTable = 'CREATE TABLE ' + LangStrings.idiomsTable +
-    '(' +
-      LangStrings.id + ' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ' +
-      LangStrings.title + ' VARCHAR(100), ' +
-      LangStrings.meaning + ' VARCHAR(500), ' +
-      LangStrings.notes + ' VARCHAR(500), ' +
-      LangStrings.isfav + ' INTEGER NOT NULL DEFAULT 0, ' +
-      LangStrings.views + ' INTEGER NOT NULL DEFAULT 0' +
-    ');';
-    
   /// Query string for creating the searches table
-  static const String createSearchesTable = 'CREATE TABLE ' + LangStrings.searchesTable +
+  static const String createSearchesTable = 'CREATE TABLE IF NOT EXISTS ' + LangStrings.searchesTable +
     '(' + 
       LangStrings.id + ' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ' +
-      LangStrings.wordid + ' INTEGER NOT NULL DEFAULT 0, ' +
+      LangStrings.recordid + ' INTEGER NOT NULL DEFAULT 0, ' +
       LangStrings.created + ' VARCHAR(20)' +
     ');';
  
-  /// Query string for creating the trivia table
-  static const String createTriviaTable = 'CREATE TABLE ' + LangStrings.triviaTable +
+  /// Query string for creating the history table
+  static const String createHistoryTable = 'CREATE TABLE IF NOT EXISTS ' + LangStrings.historyTable +
     '(' + 
       LangStrings.id + ' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ' +
-      LangStrings.triviaid + ' INTEGER NOT NULL DEFAULT 0, ' +
-      LangStrings.category + ' INTEGER NOT NULL DEFAULT 0, ' +
-      LangStrings.questions + ' VARCHAR(200), ' +
-      LangStrings.level + ' VARCHAR(200), ' +
-      LangStrings.score + ' INTEGER NOT NULL DEFAULT 0, ' +
-      LangStrings.time + ' VARCHAR(20), ' +
+      LangStrings.recordid + ' INTEGER NOT NULL DEFAULT 0, ' +
       LangStrings.created + ' VARCHAR(20)' +
     ');';
-
-
+ 
 }

@@ -5,10 +5,10 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:kamusi/helpers/app_settings.dart';
-import 'package:kamusi/screens/splash_screen.dart';
-import 'package:kamusi/screens/start_screen.dart';
-import 'package:kamusi/utils/themes.dart';
+import 'package:katiba/helpers/app_settings.dart';
+import 'package:katiba/screens/splash_screen.dart';
+import 'package:katiba/screens/start_screen.dart';
+import 'package:katiba/utils/themes.dart';
 
 void main() {
   Crashlytics.instance.enableInDevMode = true;
@@ -42,7 +42,7 @@ class _MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Kamusi',
+      title: 'Katiba',
       theme: Provider.of<AppSettings>(context).isDarkMode ? asDarkTheme : asLightTheme,
       home: new StartScreen(),
       navigatorObservers: [

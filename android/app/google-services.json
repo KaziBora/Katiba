@@ -1,42 +1,41 @@
 {
   "project_info": {
-    "project_number": "687871599531",
-    "firebase_url": "https://kamusiyamswahili.firebaseio.com",
-    "project_id": "kamusiyamswahili",
-    "storage_bucket": "kamusiyamswahili.appspot.com"
+    "project_number": "1053689496616",
+    "project_id": "katibayamkenya",
+    "storage_bucket": "katibayamkenya.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:687871599531:android:a29d24d65916ca621a28ee",
+        "mobilesdk_app_id": "1:1053689496616:android:eca89e3d58918832c1211d",
         "android_client_info": {
-          "package_name": "com.kazibora.kamusi"
+          "package_name": "com.kazibora.katiba"
         }
       },
       "oauth_client": [
         {
-          "client_id": "687871599531-fc2pmkftpivq0og2d1onpk67ielia5oq.apps.googleusercontent.com",
+          "client_id": "1053689496616-4f398npmio7kh76d4qop4csefabe3skh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.kazibora.kamusi",
-            "certificate_hash": "b840268c1a5de54277fb87404757f4b05b687ca3"
+            "package_name": "com.kazibora.katiba",
+            "certificate_hash": "603099f2319f4a4f2e45013e9451156b038e4c98"
           }
         },
         {
-          "client_id": "687871599531-5sf166afjqlhbetohu1p9lrfeilouq9c.apps.googleusercontent.com",
+          "client_id": "1053689496616-isqdkefv3vcv6lpt86b9rfef8cir84oj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBh0yb-vgWHk33HLHNsHUuH2mBXvcEQ1aM"
+          "current_key": "AIzaSyAFt-D0JksLeg2iOSt4AWL43DaAQ2IvMUc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "687871599531-5sf166afjqlhbetohu1p9lrfeilouq9c.apps.googleusercontent.com",
+              "client_id": "1053689496616-isqdkefv3vcv6lpt86b9rfef8cir84oj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:kamusi/helpers/app_settings.dart';
-import 'package:kamusi/utils/constants.dart';
+import 'package:katiba/helpers/app_settings.dart';
+import 'package:katiba/utils/constants.dart';
 
 class DonateScreen extends StatefulWidget {
   @override

@@ -1,36 +1,40 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:kamusi/utils/constants.dart';
+import 'package:katiba/utils/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 import 'package:anisi_controls/anisi_controls.dart';
-import 'package:kamusi/utils/colors.dart';
 
-import 'package:kamusi/helpers/app_settings.dart';
-import 'package:kamusi/models/generic_model.dart';
-import 'package:kamusi/helpers/sqlite_helper.dart';
+import 'package:katiba/utils/colors.dart';
+import 'package:katiba/helpers/app_settings.dart';
+import 'package:katiba/models/record.dart';
+import 'package:katiba/helpers/sqlite_helper.dart';
+import 'package:katiba/views/record_item.dart';
 
-class TabViewGeneric extends StatefulWidget {
-  final String tabname;
-  const TabViewGeneric(this.tabname);
-  
+class TabViewRecord extends StatefulWidget {
+
   @override
-  TabViewGenericState createState() => TabViewGenericState();
+  TabViewRecordState createState() => TabViewRecordState();
 }
 
-class TabViewGenericState extends State<TabViewGeneric> {
+class TabViewRecordState extends State<TabViewRecord> {
   SqliteHelper db = SqliteHelper();
   AsLoader loader = AsLoader.setUp(ColorUtils.primaryColor);
   AsInformer notice = AsInformer.setUp(3, LangStrings.nothing, Colors.red, Colors.transparent, Colors.white, 10);
   
+  Future<Database> dbFuture;
+  List<Record> items = List<Record>();
+  List<String> letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'Y', 'Z' ];
   String letterSearch;
 
-  Future<Database> dbFuture;
-  List<GenericModel> items = List<GenericModel>();
-  List<String> letters = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'Y', 'Z' ];
+  TabViewRecordState();
   
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => initBuild(context));
+  }
+
   /// Method to run anything that needs to be run immediately after Widget build
   void initBuild(BuildContext context) async {
     loadListView();
@@ -38,10 +42,10 @@ class TabViewGenericState extends State<TabViewGeneric> {
   
   void loadListView() async {
     loader.showWidget();
-
+    
     dbFuture = db.initializeDatabase();
     dbFuture.then((database) {
-      Future<List<GenericModel>> itemListFuture = db.getGenericList(widget.tabname);
+      Future<List<Record>> itemListFuture = db.getRecordList();
       itemListFuture.then((resultList) {
         setState(() {
           items = resultList;
@@ -54,12 +58,12 @@ class TabViewGenericState extends State<TabViewGeneric> {
   }
 
   void setSearchingLetter(String _letter) async {
+    loader.showWidget();
     letterSearch = _letter;
     items.clear();
-    loader.showWidget();
     dbFuture = db.initializeDatabase();
     dbFuture.then((database) {
-      Future<List<GenericModel>> itemListFuture = db.getGenericSearch(_letter, widget.tabname, true);
+      Future<List<Record>> itemListFuture = db.getRecordSearch(_letter, true);
       itemListFuture.then((resultList) {
         setState(() {
           items = resultList;
@@ -73,14 +77,14 @@ class TabViewGenericState extends State<TabViewGeneric> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       decoration: Provider.of<AppSettings>(context).isDarkMode ? BoxDecoration()
           : BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 stops: [ 0.1, 0.4, 0.6, 0.9 ],
-                colors: [ Colors.black, Colors.blue[900],  Colors.blue, Colors.blue[200] ]),
+                colors: [ Colors.black, ColorUtils.secondaryColor, ColorUtils.primaryColor, ColorUtils.lightColor ]),
             ),
       child: Stack(
         children: <Widget>[
@@ -91,7 +95,9 @@ class TabViewGenericState extends State<TabViewGeneric> {
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
               itemCount: items.length,
-              itemBuilder: listView,
+              itemBuilder: (BuildContext context, int index) {
+                return RecordItem('ItemIndex_' + items[index].id.toString(), items[index], context);
+              }
             ),
           ),
           Container(
@@ -158,50 +164,6 @@ class TabViewGenericState extends State<TabViewGeneric> {
     );
   }
 
-  Widget listView(BuildContext context, int index) {
-    String strContent = "<b>" + items[index].title + "</b>";
-
-    try {
-      if (items[index].meaning.length > 1) {
-        strContent = strContent + '<ul>';
-        var strContents = items[index].meaning.split(";");
-
-        if (strContents.length > 1) {
-          try {
-            for (int i = 0; i < strContents.length; i++) {
-              var strExtra = strContents[i].split(":");
-              strContent = strContent + "<li>" + strExtra[0].trim() + "</li>";
-            }
-          } catch (Exception) {}
-        } else {
-          var strExtra = strContents[0].split(":");
-          strContent = strContent + "<li>" + strExtra[0].trim() + "</li>";
-        }
-        strContent = strContent + '</ul>';
-      }
-      return Card(
-        elevation: 2,
-        child: GestureDetector(
-          child: Html(
-            data: strContent,
-            style: {
-              "html": Style(
-                fontSize: FontSize(20.0),
-              ),
-              "ul": Style(
-                fontSize: FontSize(18.0),
-              ),
-            },
-          ),
-        ),
-      );
-    } catch (Exception) {
-      return Container();
-    }
-  }
-
-  void navigateToViewer(GenericModel word) async {
-  }
 }
 
 class BookItem<T> {

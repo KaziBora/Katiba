@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:kamusi/helpers/app_settings.dart';
-import 'package:kamusi/models/word_model.dart';
-import 'package:kamusi/utils/constants.dart';
-import 'package:kamusi/utils/colors.dart';
-import 'package:kamusi/views/word_item.dart';
+import 'package:katiba/helpers/app_settings.dart';
+import 'package:katiba/models/record.dart';
+import 'package:katiba/utils/constants.dart';
+import 'package:katiba/utils/colors.dart';
+import 'package:katiba/views/record_item.dart';
 
 class AppSearchDelegate extends SearchDelegate<List> {
 
-	List<WordModel> itemList, filtered;
+	List<Record> itemList, filtered;
 
 	AppSearchDelegate(BuildContext context, this.itemList) {
     filtered = itemList;
@@ -89,7 +89,7 @@ class AppSearchDelegate extends SearchDelegate<List> {
       child: ListView.builder(
         itemCount: filtered.length,
         itemBuilder: (context, index) {
-          return WordItem('ItemSearch_' + filtered[index].id.toString(), filtered[index], context);
+          return RecordItem('ItemSearch_' + filtered[index].id.toString(), filtered[index], context);
         }
       ),
     );
@@ -98,7 +98,7 @@ class AppSearchDelegate extends SearchDelegate<List> {
   void filterNow() async {
     if (query.isNotEmpty)
     {
-      List<WordModel> tmpList = new List<WordModel>();
+      List<Record> tmpList = new List<Record>();
       for(int i = 0; i < itemList.length; i++) {        
         if (
           itemList[i].title.toLowerCase().startsWith(query.toLowerCase())

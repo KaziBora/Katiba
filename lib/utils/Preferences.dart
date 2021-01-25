@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:kamusi/utils/constants.dart';
+import 'package:katiba/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
@@ -21,14 +21,14 @@ class Preferences {
     return prefs.getString(prefKey);
   }
 
-  static Future<bool> isKamusidbLoaded() async {
+  static Future<bool> isAppdbLoaded() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(SharedPreferenceKeys.AppDb_loaded);
   }
 
-  static Future<void> setKamusidbLoaded(bool isKamusidbLoaded) async {
+  static Future<void> setAppdbLoaded(bool isAppdbLoaded) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setBool(
-        SharedPreferenceKeys.AppDb_loaded, isKamusidbLoaded);
+        SharedPreferenceKeys.AppDb_loaded, isAppdbLoaded);
   }
 }

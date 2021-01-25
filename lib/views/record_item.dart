@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
-import 'package:kamusi/screens/word_view_screen.dart';
+import 'package:katiba/screens/record_view_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:kamusi/helpers/app_settings.dart';
-import 'package:kamusi/utils/colors.dart';
-import 'package:kamusi/models/word_model.dart';
+import 'package:katiba/helpers/app_settings.dart';
+import 'package:katiba/utils/colors.dart';
+import 'package:katiba/models/record.dart';
 
-class WordItem extends StatelessWidget {
+class RecordItem extends StatelessWidget {
 
   final String heroTag;
-  final WordModel item;
+  final Record item;
   final BuildContext context;
 
-  WordItem(this.heroTag, this.item, this.context);
+  RecordItem(this.heroTag, this.item, this.context);
   String itemBook;
 
   @override
   Widget build(BuildContext context) {
     String strContent = "<b>" + item.title + "</b>";
-    String strMeaning = item.meaning;
+    String strMeaning = item.body;
 
     try {
       if (strMeaning.length == 0) {
@@ -43,12 +43,7 @@ class WordItem extends StatelessWidget {
           strContent = strContent + "<li>" + strExtra[0] + "</li>";
         }
         strContent = strContent + '</ul>';
-        if (item.synonyms.length > 1)
-          strContent = strContent +
-              "<br><p><b>Visawe:</b> <i>" +
-              item.synonyms +
-              "</i></p>";
-
+        
         return Card(
           elevation: 2,
           child: GestureDetector(
@@ -68,7 +63,7 @@ class WordItem extends StatelessWidget {
               },
             ),
             onTap: () {
-              navigateToWord(item);
+              navigateToRecord(item);
             },
           ),
         );
@@ -78,9 +73,9 @@ class WordItem extends StatelessWidget {
     }
   }
   
-  void navigateToWord(WordModel word) async {
+  void navigateToRecord(Record record) async {
     await Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return WordViewScreen(word);
+      return RecordViewScreen(record);
     }));
   }
   

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-import 'package:kamusi/helpers/app_search_delegate.dart';
-import 'package:kamusi/helpers/app_settings.dart';
-import 'package:kamusi/models/word_model.dart';
-import 'package:kamusi/utils/colors.dart';
-import 'package:kamusi/utils/constants.dart';
+import 'package:katiba/helpers/app_search_delegate.dart';
+import 'package:katiba/helpers/app_settings.dart';
+import 'package:katiba/models/record.dart';
+import 'package:katiba/utils/colors.dart';
+import 'package:katiba/utils/constants.dart';
 import 'package:provider/provider.dart';
 
-import 'package:kamusi/screens/donate_screen.dart';
-import 'package:kamusi/screens/help_desk_screen.dart';
-import 'package:kamusi/screens/howto_use_screen.dart';
-import 'package:kamusi/screens/about_screen.dart';
+import 'package:katiba/screens/donate_screen.dart';
+import 'package:katiba/screens/help_desk_screen.dart';
+import 'package:katiba/screens/howto_use_screen.dart';
+import 'package:katiba/screens/about_screen.dart';
 
 class AsSearch extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final List<WordModel> itemList;
+  final List<Record> itemList;
   AsSearch(this.scaffoldKey, this.itemList);
 
   @override
@@ -43,10 +43,10 @@ class AsSearch extends StatelessWidget {
           value: 2,
           child: Text(LangStrings.helpTabPage),
         ),
-        PopupMenuItem(
+        /*PopupMenuItem(
           value: 3,
           child: Text(LangStrings.howToUse),
-        ),
+        ),*/
         /*PopupMenuItem(
           value: 4,
           child: Text(LangStrings.aboutApp),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kamusi/models/page.dart';
+import 'package:katiba/models/page.dart';
+import 'package:katiba/utils/colors.dart';
 
 class AsTabBar extends StatelessWidget {
   final TabController _controller;
@@ -20,7 +21,7 @@ class AsTabBar extends StatelessWidget {
         controller: _controller,
         isScrollable: true,
         indicatorColor: Colors.white,
-        labelColor: Colors.blue,
+        labelColor: ColorUtils.secondaryColor,
         unselectedLabelColor: Colors.grey,
         tabs: _allPages.map((AsPage page) {
           return Tab(
